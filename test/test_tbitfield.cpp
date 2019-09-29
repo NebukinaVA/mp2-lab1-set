@@ -2,7 +2,17 @@
 
 #include <gtest.h>
 
-//первый тест
+//+ тест set bit 1
+TEST(TBitField, can_set)
+{
+	const int size = 70;
+	TBitField bf(size);
+	const int bitNum = 33;
+
+	bf.SetBit(bitNum);
+
+	ASSERT_EQ(1, bf.GetBit(bitNum));
+}
 
 TEST(TBitField, can_create_bitfield_with_positive_length)
 {
