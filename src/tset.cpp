@@ -100,11 +100,7 @@ TSet TSet::operator-(const int Elem) // разность с элементом
 
 TSet TSet::operator*(const TSet &s) // пересечение
 {
-	int Max = MaxPower;
-	if (s.MaxPower > Max)
-		Max = s.MaxPower;
-	TSet temp(Max);
-	temp.BitField = BitField & s.BitField;
+	TSet temp(BitField & s.BitField);
 	return temp;
 }
 
