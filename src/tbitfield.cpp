@@ -73,7 +73,9 @@ int TBitField::GetBit(const int n) const // получить значение б
 {
 	if ((n < 0) || (n >= BitLen)) throw "Incorrect input";
 	int i = GetMemIndex(n);
-	return (pMem[i] & GetMemMask(n));
+	if ((pMem[i] & GetMemMask(n)) == GetMemMask(n))
+		return 1;
+	else return 0;
 }
 
 // битовые операции
@@ -156,21 +158,21 @@ TBitField TBitField::operator|(const TBitField &bf) // операция "или"
 		temp.pMem[i] |= bf.pMem[i];
     }
 	return temp;
+
 }
 
 TBitField TBitField::operator&(const TBitField &bf) // операция "и"
 {
-	int i, len = BitLen;
-	if (bf.BitLen > len)
-		len = bf.BitLen;
-	TBitField temp(len);
-	for (i = 0; i < MemLen; i++)
+	int i, blen = BitLen, mlen = MemLen;
+	if (bf.BitLen > blen)
 	{
-		temp.pMem[i] = pMem[i];
-    }
-	for (i = 0; i < bf.MemLen; i++)
+		blen = bf.BitLen;
+		mlen - bf.MemLen;
+	}
+	TBitField temp(blen);
+	for (i = 0; i < mlen; i++)
 	{
-		temp.pMem[i] &= bf.pMem[i];
+		temp.pMem[i] = pMem[i] & bf.pMem[i];
     }
 	return temp;
 }
