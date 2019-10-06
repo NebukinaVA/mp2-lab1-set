@@ -165,11 +165,10 @@ TBitField TBitField::operator|(const TBitField &bf) // операция "или"
 TBitField TBitField::operator&(const TBitField &bf) // операция "и"
 {
 	int i, blen = BitLen, mlen = MemLen;
-	if (bf.BitLen > blen)
-	{
+	if (bf.BitLen > BitLen)
 		blen = bf.BitLen;
-		mlen - bf.MemLen;
-	}
+	if (bf.MemLen < MemLen)
+		mlen = bf.MemLen;
 	TBitField temp(blen);
 	for (i = 0; i < mlen; i++)
 	{
